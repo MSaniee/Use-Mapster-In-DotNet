@@ -12,19 +12,9 @@ public class ProductsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post(ProductDto dto)
     {
-        Product product = new()
-        {
-            Name = dto.Name,
-            Brand = dto.Brand,
-            FullName = dto.Name + $" ({dto.Brand})",
-            //...
-            //...
-            //...
-            Size = dto.Size,
-            Weight = dto.Weight
-        };
+        Product product = dto.ToEntity();
 
         //...
-        return Ok();
+        return Ok(product);
     }
 }

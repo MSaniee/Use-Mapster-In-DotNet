@@ -6,9 +6,7 @@ public class Product
     public string Name { get; set; }
     public string Brand { get; set; }
     
-
-    
-    public int Weight { get; set; }
+    public string WeightWithUnit { get; set; }
     public string Size { get; set; }
 
 

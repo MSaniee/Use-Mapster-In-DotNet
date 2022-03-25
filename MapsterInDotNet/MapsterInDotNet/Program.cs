@@ -1,8 +1,19 @@
+using MapsterInDotNet.Data;
+using MapsterInDotNet.WebFramework;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddMapster();
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<ApplicationDbContext>(option =>
+{
+    option.UseSqlServer("Data Source=.;Initial Catalog=MapsterInDotNetDb;Integrated Security=true");
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

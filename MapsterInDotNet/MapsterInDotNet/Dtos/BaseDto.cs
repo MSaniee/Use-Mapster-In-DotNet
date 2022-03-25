@@ -1,5 +1,4 @@
 ﻿using Mapster;
-using MapsterInDotNet.Entities;
 
 namespace MapsterInDotNet.Dtos;
 
@@ -23,34 +22,25 @@ public abstract class BaseDto<TDto, TEntity> : IRegister
         return entity.Adapt<TDto>();
     }
 
-    public void CreateMappings(Profile profile)
+    private TypeAdapterConfig Config { get; set; }
+
+    public virtual void AddCustomMappings()
     {
-        var mappingExpression = profile.CreateMap<TDto, TEntity>();
 
-        var dtoType = typeof(TDto);
-        var entityType = typeof(TEntity);
-        //Ignore any property of source (like Post.Author) that dose not contains in destination
-        foreach (var property in entityType.GetProperties())
-        {
-            if (dtoType.GetProperty(property.Name) == null)
-                mappingExpression.ForMember(property.Name, opt => opt.Ignore());
-        }
-
-        CustomMappings(mappingExpression);
-        CustomMappings(mappingExpression.ReverseMap());
     }
 
-    public virtual void CustomMappings(TypeAdapterSetter<TEntity, TDto> setter)
-    {
-        
-    }
 
-    public virtual void CustomMappings(TypeAdapterSetter<TDto, TEntity> setter)
-    {
-    }
+    protected TypeAdapterSetter<TDto, TEntity> SetCustomMappings()
 
-    public virtual void Register(TypeAdapterConfig config)
+        => Config.ForType<TDto, TEntity>();
+
+    protected TypeAdapterSetter<TEntity, TDto> SetCustomMappingsInverse()
+
+        => Config.ForType<TEntity, TDto>();
+
+    public void Register(TypeAdapterConfig config)
     {
-        var v = config.Ma..ForType<Product, ProductDto>();
+        Config = config;
+        AddCustomMappings();
     }
 }
