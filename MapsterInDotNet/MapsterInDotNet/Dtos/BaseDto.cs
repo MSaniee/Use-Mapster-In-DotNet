@@ -22,6 +22,7 @@ public abstract class BaseDto<TDto, TEntity> : IRegister
         return entity.Adapt<TDto>();
     }
 
+
     private TypeAdapterConfig Config { get; set; }
 
     public virtual void AddCustomMappings()
