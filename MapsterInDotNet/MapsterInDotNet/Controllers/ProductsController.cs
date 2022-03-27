@@ -19,22 +19,6 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost]
-    [Route("[controller]/[action]")]
-    public async Task<IActionResult> AddColor()
-    {
-        Color color = new()
-        {
-            Name = "Red"
-        };
-
-        _context.Add(color);
-
-        await _context.SaveChangesAsync();
-        //...
-        return Ok(color);
-    }
-
-    [HttpPost]
     public async Task<IActionResult> Post(ProductDto dto)
     {
         Product product = dto.ToEntity();
@@ -42,7 +26,7 @@ public class ProductsController : ControllerBase
         _context.Add(product);
 
         await _context.SaveChangesAsync();
-        //...
+
         return Ok(product);
     }
 
@@ -55,7 +39,6 @@ public class ProductsController : ControllerBase
             .ProjectToType<ProductDto>()
             .FirstOrDefaultAsync();
 
-        //...
         return Ok(productDto);
     }
 
@@ -68,7 +51,6 @@ public class ProductsController : ControllerBase
             .ProjectToType<ProductDto>()
             .ToListAsync();
 
-        //...
         return Ok(result);
     }
 }
