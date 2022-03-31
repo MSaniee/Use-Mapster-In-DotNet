@@ -30,6 +30,7 @@ public class ProductsController : ControllerBase
         return Ok(product);
     }
 
+
     [HttpGet]
     public async Task<IActionResult> Get(int productId)
     {
@@ -42,6 +43,7 @@ public class ProductsController : ControllerBase
         return Ok(productDto);
     }
 
+
     [HttpGet]
     [Route("[controller]/[action]")]
     public async Task<IActionResult> GetAll()
@@ -49,6 +51,18 @@ public class ProductsController : ControllerBase
         var result = await _context
             .Products
             .ProjectToType<ProductDto>()
+            .ToListAsync();
+
+        return Ok(result);
+    }
+
+    [HttpGet]
+    [Route("[controller]/[action]")]
+    public async Task<IActionResult> Products(int userFavoriteColorId)
+    {
+        var result = await _context
+            .Products
+            .ProjectToType<ProductDto>(ProductDto.GetMapsterConfig(userFavoriteColorId))
             .ToListAsync();
 
         return Ok(result);

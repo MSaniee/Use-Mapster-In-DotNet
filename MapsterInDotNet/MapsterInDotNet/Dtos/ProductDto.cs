@@ -16,6 +16,17 @@ public class ProductDto : BaseDto<ProductDto,Product>
     public int ColorId { get; set; }
     public string ColorName { get; set; }
 
+    public bool HasFavoriteColor { get; set; }
+
+    public static TypeAdapterConfig GetMapsterConfig(int userFavoriteColorId)
+    {
+        return new TypeAdapterConfig()
+            .NewConfig<Product, ProductDto>()
+                .Map(dest => dest.FullName, src => $"{src.Name} ({src.Brand})")
+                .Map(dest => dest.ColorName, src => src.Color.Name)
+                .Map(dest => dest.HasFavoriteColor, src => src.ColorId == userFavoriteColorId) //<======<<
+                .Config;
+    }
 
     public override void AddCustomMappings()
     {
