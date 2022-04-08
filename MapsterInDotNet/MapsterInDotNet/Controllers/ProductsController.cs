@@ -31,6 +31,18 @@ public class ProductsController : ControllerBase
     }
 
 
+    [HttpPut]
+    public async Task<IActionResult> Put(ProductDto dto, int id)
+    {
+        Product product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+
+        dto.ToEntity(product);
+
+        await _context.SaveChangesAsync();
+
+        return Ok(product);
+    }
+
     [HttpGet]
     public async Task<IActionResult> Get(int productId)
     {

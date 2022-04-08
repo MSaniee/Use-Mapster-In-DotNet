@@ -14,7 +14,7 @@ public abstract class BaseDto<TDto, TEntity> : IRegister
 
     public TEntity ToEntity(TEntity entity)
     {
-        return this.Adapt(entity);
+        return (this as TDto).Adapt(entity);     
     }
 
     public static TDto FromEntity(TEntity entity)
