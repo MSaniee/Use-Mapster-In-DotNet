@@ -13,6 +13,8 @@ public class ProductDto : BaseDto<ProductDto,Product>
     public string WeightUnit { get; set; }
     public string Size { get; set; }
 
+    public int CompanyId { get; set; }
+
     public int ColorId { get; set; }
     public string ColorName { get; set; }
 

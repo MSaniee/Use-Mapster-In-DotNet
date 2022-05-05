@@ -12,5 +12,6 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Product> Products { get; set; }
     public DbSet<Color> Colors { get; set; }
+    public DbSet<Company> Companies { get; set; }
 }
 
